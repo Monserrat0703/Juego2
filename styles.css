@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --phosphor-primary: #33ff33; /* Verde clásico de terminal */
+    --phosphor-secondary: #28cc28;
+    --bg-color: #050505;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    overflow: hidden;
+    font-family: 'VT323', monospace;
+    color: var(--phosphor-primary);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Contenedor principal de la máquina arcade */
+#arcade-cabinet {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated; 
+}
+
+/* HUD (Heads Up Display) */
+#ui-layer {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+    font-size: 24px;
+    text-shadow: 0 0 5px var(--phosphor-primary);
+}
+
+/* Pantallas de Menú / Game Over */
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    transition: opacity 0.3s;
+}
+
+h1 {
+    font-size: 80px;
+    margin: 0;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--phosphor-primary), 0 0 20px var(--phosphor-primary);
+    animation: flicker 4s infinite;
+}
+
+p {
+    font-size: 24px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.controls-text {
+    font-size: 18px;
+    color: #aaa;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+button {
+    background: transparent;
+    border: 2px solid var(--phosphor-primary);
+    color: var(--phosphor-primary);
+    font-family: 'VT323', monospace;
+    font-size: 28px;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin-top: 30px;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px var(--phosphor-secondary);
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: var(--phosphor-primary);
+    color: #000;
+    box-shadow: 0 0 20px var(--phosphor-primary);
+}
+
+/* Efectos CRT (Scanlines y Curvatura) */
+.crt-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    ), linear-gradient(
+        90deg, 
+        rgba(255, 0, 0, 0.06), 
+        rgba(0, 255, 0, 0.02), 
+        rgba(0, 0, 255, 0.06)
+    );
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 51;
+}
+
+/* Controles móviles */
+#mobile-controls {
+    display: none; /* Se activa por JS si es táctil */
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 150px;
+    z-index: 30;
+    pointer-events: none; /* Los botones internos tendrán pointer-events auto */
+}
+
+.d-pad, .action-btn {
+    position: absolute;
+    pointer-events: auto;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid var(--phosphor-primary);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.d-pad:active, .action-btn:active {
+    background: rgba(0, 255, 0, 0.4);
+}
+
+.btn-left { bottom: 20px; left: 20px; }
+.btn-right { bottom: 20px; left: 100px; }
+.btn-up { bottom: 90px; left: 60px; }
+.btn-shoot { bottom: 40px; right: 40px; width: 90px; height: 90px; border-radius: 50%; }
+
+.game-over-title {
+    font-size: 50px;
+    color: red;
+    text-shadow: 0 0 10px red;
+}
+
+#gameOverContent {
+    display: none;
+    text-align: center;
+}
+
+@keyframes blinker { 50% { opacity: 0; } }
+@keyframes flicker {
+    0% { opacity: 0.9; }
+    5% { opacity: 0.5; }
+    10% { opacity: 0.9; }
+    15% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 50px; }
+    #mobile-controls { display: block; }
+}

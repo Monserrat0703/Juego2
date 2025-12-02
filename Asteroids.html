@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Asteroids 1980 - Arcade Experience</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="arcade-cabinet">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Efectos de pantalla -->
+        <div class="crt-overlay"></div>
+        <div class="vignette"></div>
+
+        <!-- Interfaz de usuario -->
+        <div id="ui-layer">
+            <div id="scoreDisplay">PUNTOS: 00000</div>
+            <div id="livesDisplay">VIDAS: ▲▲▲</div>
+        </div>
+
+        <!-- Pantallas de estado -->
+        <div id="overlay">
+            <h1>ASTEROIDS</h1>
+            <div id="menuContent">
+                <p>1 COIN 1 PLAY</p>
+                <p class="controls-text">CONTROLES: FLECHAS + ESPACIO</p>
+                <button id="startBtn" class="blink">INSERTAR MONEDA</button>
+            </div>
+            <div id="gameOverContent">
+                <h2 class="game-over-title">GAME OVER</h2>
+                <p id="finalScore">PUNTUACIÓN FINAL: 0</p>
+                <button id="restartBtn">REINTENTAR</button>
+            </div>
+        </div>
+
+        <!-- Controles Móviles -->
+        <div id="mobile-controls">
+            <div class="d-pad btn-left" id="btnLeft">←</div>
+            <div class="d-pad btn-right" id="btnRight">→</div>
+            <div class="d-pad btn-up" id="btnUp">↑</div>
+            <div class="action-btn btn-shoot" id="btnShoot">●</div>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
